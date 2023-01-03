@@ -27,10 +27,24 @@ let lastX = null;
 let lastY = null;
 let ctx = null;
 let myCanvas = null;
+/* 【签名区】的提示语 */
+let showTip = true;
+function drawTip() {
+  showTip = true;
+  ctx.font = '40px Arial';
+  ctx.fillStyle = '#aaa';
+  ctx.fillText('签名区域', 150, 120);
+}
+function clearTip() {
+  showTip = false;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
 /* 初始化 */
 function init() {
   myCanvas = document.querySelector('#myCanvas');
   ctx = myCanvas.getContext('2d');
+  drawTip();
   myCanvas.addEventListener('mousedown', StartDraw);
   myCanvas.addEventListener('mousemove', MoveDraw);
   myCanvas.addEventListener('mouseup', StopDraw);
@@ -63,6 +77,9 @@ function Draw(x, y, isDown) {
     ctx.lineTo(x, y);
     ctx.closePath();
     ctx.stroke();
+    if (showTip) {
+      clearTip();
+    }
   }
   lastX = x;
   lastY = y;
@@ -71,6 +88,7 @@ function Draw(x, y, isDown) {
 function redo() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  drawTip();
 }
 /* 打印图片 */
 function toPng() {
