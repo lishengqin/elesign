@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>在vue-cli中使用elesigncode</div>
+    <div>elesigncode第三方依赖使用</div>
     <div class="hello">
       <ElesignCode ref="signCode1" :datas="datas" :pen="pen" style="border: 1px solid #000" />
     </div>
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-// 导入我们内置的vue组件
+// 导入elesigncode内置的vue组件
 import ElesignCode from 'elesigncode/lib/core/elesigncode.vue';
 export default {
   // 注册我们的组件

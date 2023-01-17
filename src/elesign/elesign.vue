@@ -1,25 +1,42 @@
 <template>
-  <div class="draw-wrap">
-    <canvas id="myCanvas" width="500" height="200" style="border: 2px solid #6699cc"></canvas>
-    <div class="tool">
-      <div>
-        <span class="label">线的粗细：</span>
-        <input v-model.number="data.lineWidth" />
-      </div>
-      <div>
-        <span class="label">线的颜色：</span>
-        <input v-model="data.color" type="color" />
-      </div>
-      <button @click="redo">重做</button>
-      <button @click="toPng">打印png</button>
-    </div>
-  </div>
+  <canvas
+    id="myCanvas"
+    :width="props.width"
+    :height="props.height"
+    :style="props.canvasStyle"
+  ></canvas>
 </template>
 <script setup>
-import { onBeforeUnmount, onMounted, reactive } from 'vue';
-const data = reactive({
-  color: '#000',
-  lineWidth: '10',
+import { onBeforeUnmount, onMounted, ref, defineProps, defineExpose } from 'vue';
+const props = defineProps({
+  width: {
+    type: Number,
+    default: 500,
+  },
+  height: {
+    type: Number,
+    default: 200,
+  },
+  canvasStyle: {
+    type: Object,
+    default: () => {
+      return {
+        border: '2px solid #6699cc',
+      };
+    },
+  },
+  color: {
+    type: String,
+    default: '#000',
+  },
+  lineWidth: {
+    type: String || Number,
+    default: '10',
+  },
+  empty: {
+    type: String,
+    default: '签名区域',
+  },
 });
 
 let mousePressed = false;
@@ -27,16 +44,18 @@ let lastX = null;
 let lastY = null;
 let ctx = null;
 let myCanvas = null;
-/* 【签名区】的提示语 */
-let showTip = true;
+/* 空的的提示语 */
+const isEmpty = ref(true);
 function drawTip() {
-  showTip = true;
+  isEmpty.value = true;
   ctx.font = '40px Arial';
   ctx.fillStyle = '#aaa';
-  ctx.fillText('签名区域', 150, 120);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(props.empty, parseFloat(props.width) / 2, parseFloat(props.height) / 2);
 }
 function clearTip() {
-  showTip = false;
+  isEmpty.value = false;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
@@ -69,15 +88,15 @@ function StopDraw() {
 function Draw(x, y, isDown) {
   if (isDown) {
     ctx.beginPath();
-    ctx.strokeStyle = data.color;
-    ctx.lineWidth = data.lineWidth;
+    ctx.strokeStyle = props.color;
+    ctx.lineWidth = props.lineWidth;
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
     ctx.closePath();
     ctx.stroke();
-    if (showTip) {
+    if (isEmpty.value) {
       clearTip();
     }
   }
@@ -92,8 +111,8 @@ function redo() {
 }
 /* 打印图片 */
 function toPng() {
-  let Pic = myCanvas.toDataURL('image/png');
-  console.log(Pic);
+  let pic = myCanvas.toDataURL('image/png');
+  return pic;
 }
 /* 销毁 */
 function beforeDestroy() {
@@ -103,6 +122,7 @@ function beforeDestroy() {
   myCanvas.removeEventListener('mouseup', StopDraw);
   myCanvas.removeEventListener('mouseleave', StopDraw);
 }
+defineExpose({ redo, toPng, isEmpty });
 onMounted(() => {
   init();
 });
@@ -110,17 +130,3 @@ onBeforeUnmount(() => {
   beforeDestroy();
 });
 </script>
-<style>
-.draw-wrap {
-  background: #fff;
-  color: #000;
-  padding: 40px;
-}
-.tool div {
-  margin-top: 16px;
-}
-.tool button {
-  margin-top: 16px;
-  margin-right: 8px;
-}
-</style>

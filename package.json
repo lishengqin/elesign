@@ -1,8 +1,24 @@
 {
   "name": "elesign",
-  "private": true,
-  "version": "0.0.0",
+  "publishConfig": {
+    "registry": " https://registry.npmjs.org/"
+  },
+  "version": "1.0.6",
   "type": "module",
+  "description": "canvas 电子涂鸦，线上签名",
+  "keywords": [
+    "canvas",
+    "电子涂鸦",
+    "线上签名"
+  ],
+  "files": [
+    "lib/*",
+    "package.json",
+    "src/elesign/elesign"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

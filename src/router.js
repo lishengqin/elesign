@@ -7,12 +7,12 @@ const routes = [
   {
     name: 'elesign',
     path: '/elesign',
-    component: () => import('@/views/elesign.vue'),
+    component: () => import('../example/elesign.vue'),
   },
   {
     name: 'elesigncode',
     path: '/elesigncode',
-    component: () => import('@/views/elesigncode.vue'),
+    component: () => import('../example/elesigncode.vue'),
   },
 ];
 const router = createRouter({
