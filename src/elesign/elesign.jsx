@@ -24,6 +24,10 @@ const props = {
     type: String || Number,
     default: '10',
   },
+  defaultImg: {
+    type: String,
+    default:""
+   },
   empty: {
     type: String,
     default: '签名区域',
@@ -33,7 +37,7 @@ export default defineComponent({
   props: props,
   name: "elesign",
   setup(props, { expose }) {
-    const instance = getCurrentInstance();// 实例
+   const instance = getCurrentInstance();// 实例
     let mousePressed = false;
     let lastX = null;
     let lastY = null;
@@ -58,12 +62,21 @@ export default defineComponent({
     function init() {
       myCanvas = instance.refs.myCanvas;
       ctx = myCanvas.getContext('2d');
-      drawTip();
+      
       myCanvas.addEventListener('mousedown', StartDraw);
       myCanvas.addEventListener('mousemove', MoveDraw);
       myCanvas.addEventListener('mouseup', StopDraw);
       myCanvas.addEventListener('mouseleave', StopDraw);
+      if (props.defaultImg) {
+        isEmpty.value = false;
+        let canvasPic = new Image();
+        canvasPic.src = props.defaultImg;
+        canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
+      } else {
+        drawTip()
+      }
     }
+
     /* 开始画 */
     function StartDraw(e) {
       mousePressed = true;

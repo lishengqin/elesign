@@ -4,14 +4,15 @@
 
 ## props
 
-| 属性名      | 说明         | 类型             | 默认值                         |
-| ----------- | ------------ | ---------------- | ------------------------------ |
-| width       | 画布宽度     | Number           | 500                            |
-| height      | 画布高度     | Number           | 200                            |
-| canvasStyle | 画布样式     | Object           | { border: '2px solid #6699cc'} |
-| color       | 画笔颜色     | String           | #000                           |
-| lineWidth   | 画笔粗细     | String 或 Number | 10                             |
-| empty       | 空的文字内容 | String           | 签名区域                       |
+| 属性名      | 说明                                                                        | 类型             | 默认值                         |
+| ----------- | --------------------------------------------------------------------------- | ---------------- | ------------------------------ |
+| width       | 画布宽度                                                                    | Number           | 500                            |
+| height      | 画布高度                                                                    | Number           | 200                            |
+| canvasStyle | 画布样式                                                                    | Object           | { border: '2px solid #6699cc'} |
+| color       | 画笔颜色                                                                    | String           | #000                           |
+| lineWidth   | 画笔粗细                                                                    | String 或 Number | 10                             |
+| empty       | 空的文字内容                                                                | String           | 签名区域                       |
+| defaultImg  | 画布初始的值，格式应该是 canvas 的 toDataURL() 方法，生成的是 base64 的图片 | String           | ""                             |
 
 ## 使用示例
 
