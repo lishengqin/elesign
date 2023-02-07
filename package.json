@@ -20,8 +20,9 @@
   "module": "lib/es/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --config ./config/base.js",
+    "build:lib": "vite build --config ./config/lib.js",
+    "build:doc": "vite build --config ./config/docs.js",
     "preview": "vite preview"
   },
   "dependencies": {
