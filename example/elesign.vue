@@ -3,7 +3,7 @@
     <h2>没有初始值的画布</h2>
     <elesign ref="elesignRef" color="red" lineWidth="5" width="400" empty="请签名" />
     <div class="tool">
-      <button @click="redo1">重做</button>
+      <button @click="redo">重做</button>
       <button @click="toPng">打印png</button>
       <div>{{ '画布是否为空：' + isEmpty }}</div>
     </div>
