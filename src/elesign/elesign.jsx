@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onBeforeUnmount, ref, getCurrentInstance ,computed} from "vue";
+import { defineComponent, onMounted, onBeforeUnmount, ref, getCurrentInstance, computed } from "vue";
 const props = {
   width: {
     type: Number,
@@ -101,14 +101,16 @@ export default defineComponent({
       mousePressed = false;
       if (isHasDraw) {
         isHasDraw = false
-     
+        addHistoryList()
+      }
+    }
+    function addHistoryList() {
       historyList.value = historyList.value.slice(0, historyIndex.value + 1);
-      let lastImg = toPng();
-      if (!historyList.value.length || historyList.value.indexOf(lastImg) !== historyList.value.length - 1) {
-        historyList.value.push(lastImg);
-      }
+        let lastImg = toPng();
+        if (!historyList.value.length || historyList.value.indexOf(lastImg) !== historyList.value.length - 1) {
+          historyList.value.push(lastImg);
+        }
         historyIndex.value = historyList.value.length - 1;
-      }
     }
     function CommonWardDo() {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -120,7 +122,7 @@ export default defineComponent({
     function backward() {
       if (historyIndex.value < 0) {
         return
-      } 
+      }
       historyIndex.value--;
       CommonWardDo()
     }
@@ -128,7 +130,7 @@ export default defineComponent({
     function forward() {
       if (historyIndex.value >= historyList.value.length - 1) {
         return
-      } 
+      }
       historyIndex.value++;
       CommonWardDo()
     }
@@ -138,7 +140,7 @@ export default defineComponent({
     const isForwardAble = computed(() => {
       return historyIndex.value < historyList.value.length - 1;
     });
-    
+
     /* 画线 */
     function Draw(e, isDown) {
       let x = e.pageX - myCanvas.offsetLeft;
@@ -191,6 +193,7 @@ export default defineComponent({
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       drawEmptyTip();
+      addHistoryList()
     }
     /* 打印图片 */
     function toPng() {
@@ -205,7 +208,7 @@ export default defineComponent({
       myCanvas.removeEventListener('mouseup', StopDraw);
       myCanvas.removeEventListener('mouseleave', StopDraw);
     }
-    expose({ redo, toPng, isEmpty, backward, forward, isBackwardAble,isForwardAble });
+    expose({ redo, toPng, isEmpty, backward, forward, isBackwardAble, isForwardAble });
     onMounted(() => {
       init();
     });
