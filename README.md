@@ -1,6 +1,8 @@
 # elesign
 
 通过 canvas 实现线上涂鸦，签名，清空，转为 png，橡皮擦，撤销回退，重做前进，可自定义画笔的颜色(或图片)、粗细。
+示例地址:
+<a href="https://lishengqin.github.io/elesign/#/graffiti">Example</a>
 
 ## props 属性
 
