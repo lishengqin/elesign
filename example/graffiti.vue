@@ -104,6 +104,7 @@ const penImgChange = (img, ref) => {
     penImg.value.dom = null;
   } else {
     penImg.value.img = img;
+    console.log(instance, 'instance');
     penImg.value.dom = instance.ctx.$refs[ref][0];
   }
 };
