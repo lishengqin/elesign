@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": " https://registry.npmjs.org/"
   },
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "description": "canvas 电子涂鸦，线上签名",
   "keywords": [

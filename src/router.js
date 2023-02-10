@@ -5,14 +5,24 @@ const routes = [
     redirect: '/elesign',
   },
   {
-    name: 'elesign',
-    path: '/elesign',
-    component: () => import('../example/elesign.vue'),
-  },
-  {
-    name: 'elesigncode',
-    path: '/elesigncode',
-    component: () => import('../example/elesigncode.vue'),
+    component: () => import('../example/layout/index.vue'),
+    children: [
+      {
+        name: 'elesigncode',
+        path: '/elesigncode',
+        component: () => import('../example/elesigncode.vue'),
+      },
+      {
+        name: 'elesign',
+        path: '/elesign',
+        component: () => import('../example/elesign.vue'),
+      },
+      {
+        name: 'graffiti',
+        path: '/graffiti',
+        component: () => import('../example/graffiti.vue'),
+      },
+    ],
   },
 ];
 const router = createRouter({

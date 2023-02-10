@@ -1,0 +1,1 @@
+*{margin:0}.layout{width:100vw;height:100vh;display:flex}.menu-list{width:280px;border-right:1px solid #eee}.head{background:#1867c0;color:#fff;padding:10px;height:40px;display:flex;align-items:center}.menu{padding:10px;cursor:pointer}.menu.active{color:#1867c0}.content{flex:1;overflow:auto;padding:10px;box-sizing:border-box}
